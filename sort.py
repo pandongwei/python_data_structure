@@ -1,3 +1,4 @@
+# 冒泡排序
 def BubbleSort(nums):
     l = len(nums)
     for i in range(l):
@@ -6,6 +7,7 @@ def BubbleSort(nums):
                 nums[j-1], nums[j] = nums[j], nums[j-1]
     return nums
 
+# 选择排序
 def SelectSort(nums):
     l = len(nums)
     for i in range(l):
@@ -17,6 +19,7 @@ def SelectSort(nums):
             nums[i], nums[min] = nums[min], nums[i]
     return nums
 
+# 插入排序
 def InsertSort(nums):
     l = len(nums)
     for i in range(1, l):
@@ -29,6 +32,7 @@ def InsertSort(nums):
             nums[j+1] = tmp
     return nums
 
+# 希尔排序
 def ShellSort(nums): #TODO
     l = len(nums)
     increment = l
@@ -47,11 +51,52 @@ def ShellSort(nums): #TODO
                 nums[j+increment] = tmp
     return nums
 
+
+def shellSort(nums):
+    n = len(nums)
+    gap = int(n / 2)
+    while gap > 0:
+        for i in range(gap, n):
+            temp = nums[i]
+            j = i
+            while j >= gap and nums[j - gap] > temp:
+                nums[j] = nums[j - gap]
+                j -= gap
+            nums[j] = temp
+        gap = int(gap / 2)
+    return nums
+
+# 堆排序
 def HeapSort(nums):
     pass
 
-def MSort(nums):
-    pass
+# 归并排序
+def merge_sort(a: List[int]):
+    _merge_sort_between(a, 0, len(a) - 1)
+
+def _merge_sort_between(a: list[int], low: int, high: int):
+    # The indices are inclusive for both low and high.
+    if low < high:
+        mid = low + (high - low) // 2
+        _merge_sort_between(a, low, mid)
+        _merge_sort_between(a, mid + 1, high)
+        _merge(a, low, mid, high)
+
+def _merge(a: list[int], low: int, mid: int, high: int):
+    # a[low:mid], a[mid+1, high] are sorted.
+    i, j = low, mid + 1
+    tmp = []
+    while i <= mid and j <= high:
+        if a[i] <= a[j]:
+            tmp.append(a[i])
+            i += 1
+        else:
+            tmp.append(a[j])
+            j += 1
+    start = i if i <= mid else j
+    end = mid if i <= mid else high
+    tmp.extend(a[start:end + 1])
+    a[low:high + 1] = tmp
 
 def QuickSort(nums):
     def QSort(nums, low, high):
@@ -75,4 +120,4 @@ def QuickSort(nums):
 
 test = [10,9,8,7,6,5,4,3,2,1,0]
 test1 = [8,6,4,7,9,2,1,3,10,5,0]
-print(QuickSort(test1))
+print(QuickSort(test))

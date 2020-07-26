@@ -1,3 +1,4 @@
+# 实现二叉树的各种操作
 class TreeNode:
     def __init__(self, x):
         self.val = x
@@ -14,6 +15,7 @@ def reConstructBinaryTreePreTin(pre, tin):
     root.right = reConstructBinaryTreePreTin(pre[TinIndex+1:], tin[TinIndex+1:])
     return root
 
+# 后序遍历
 def PostTraversal(root):
     if root != None:
         PostTraversal(root.left)
@@ -30,6 +32,7 @@ def reConstructBinaryTreeTinPos(tin, pos):
     root.right = reConstructBinaryTreeTinPos(tin[TinIndex+1:], pos[TinIndex:-1])
     return root
 
+# 前序遍历
 def PreTraversal(root):
     if root != None:
         print(root.val)
@@ -62,6 +65,7 @@ class Tree(object):
                 treeNode.rchild = node
                 self.myQueue.append(treeNode.rchild)
                 self.myQueue.pop(0)
+
     # 利用递归来实现遍历
     def front_digui(self,root):
         if root == None:
@@ -94,7 +98,7 @@ class Tree(object):
             while node:
                 print(node.elem)
                 myStack.append(node)
-                node=node.lchild
+                node = node.lchild
             node = myStack.pop()
             node = node.rchild
 
@@ -110,3 +114,51 @@ class Tree(object):
             node = myStack.pop()
             print(node.elem)
             node = node.rchild
+
+    def postorderTraversal(self,root):
+        if root == None:
+            return root
+        node = root
+        stack_1 = []
+        stack_2 = []
+        stack_1.append(node)
+        while stack_1:
+            node = stack_1.pop()
+            stack_2.append(node)
+            if node.lchild:
+                stack_1.append(node.lchild)
+            if node.rchild:
+                stack_2.append(node.rchild)
+        while stack_2:
+            temp = stack_2.pop()
+            print(temp.elem)
+
+    # 层序遍历
+    def levelTraversal(self, root):
+        if root == None:
+            return root
+        queue = []
+        node =root
+        queue.append(node)
+        while queue:
+            l = len(queue)
+            for i in range(l):
+                node = queue.pop(0)
+                if node.lchild:
+                    queue.append(node.lchild)
+                if node.rchild:
+                    queue.append(node.rchild)
+                print(node.elem)
+
+# 测试各种遍历是否正确
+def test():
+    a = Tree()
+    a.add(1)
+    a.add(2)
+    a.add(3)
+    a.add(4)
+    a.add(5)
+    a.levelTraversal(a.root)
+
+if __name__ == '__main__':
+    test()
