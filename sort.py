@@ -118,6 +118,22 @@ def QuickSort(nums):
     QSort(nums, 0, l-1)
     return nums
 
+def quick_sort(nums,left,right):
+    if left >= right: return
+    low, high = left, right
+    pivotkey = nums[low]
+    while left < right:
+        while left < right and nums[right] > pivotkey:
+            right -= 1
+        nums[left] = nums[right]
+        while left < right and nums[left] <= pivotkey:
+            left += 1
+        nums[right] = nums[left]
+    nums[right] = pivotkey
+    quick_sort(nums, low, left-1)
+    quick_sort(nums, left+1, right)
+
+
 test = [10,9,8,7,6,5,4,3,2,1,0]
 test1 = [8,6,4,7,9,2,1,3,10,5,0]
 print(QuickSort(test))
